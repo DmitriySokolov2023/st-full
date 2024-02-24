@@ -1,0 +1,16 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model pizza {
+  id    Int    @id @default(autoincrement())
+  image String
+  name  String
+  cost  Float
+  count Int
+}
