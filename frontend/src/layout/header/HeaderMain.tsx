@@ -1,6 +1,6 @@
 import styles from "./Header.module.css";
 import {Link} from "react-router-dom";
-import logo from "../../img/logo_red.png";
+import logo from "../../assets/logo_red.png";
 import {IoIosTimer} from "react-icons/io";
 import {FiPhoneCall} from "react-icons/fi";
 

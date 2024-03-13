@@ -1,6 +1,6 @@
 import homeImage from './main_image.jpg'
 import styles from './HomePages.module.css'
-import logo from '../../img/logo_red.png'
+import logo from '../../assets/logo_red.png'
 import {useTitle} from "../../hooks/useTitle.ts";
 const HomePage = () => {
     useTitle('ST & Food')

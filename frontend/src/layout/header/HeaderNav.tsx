@@ -2,7 +2,7 @@ import {NavLink} from "react-router-dom";
 import MyButton from "../../UI/button/MyButton.tsx";
 import styles from "./Header.module.css";
 import {VscAccount} from "react-icons/vsc";
-import {link} from "../../data/data.ts";
+import {link} from "../../router/data/data.ts";
 
 
 const HeaderNav = () => {

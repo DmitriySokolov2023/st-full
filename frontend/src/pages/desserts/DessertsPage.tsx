@@ -1,10 +1,14 @@
 import {useTitle} from "../../hooks/useTitle.ts";
+import Card from "../../components/card/Card.tsx";
 
 const DessertsPage = () => {
     useTitle('Десерты')
     return (
         <div>
-            <h1>Десерты</h1>
+            <Card></Card>
+            <Card></Card>
+            <Card></Card>
+            <Card></Card>
         </div>
     );
 };

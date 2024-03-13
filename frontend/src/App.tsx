@@ -1,4 +1,3 @@
-import './App.css'
 import Layout from "./layout/Layout.tsx";
 import Header from "./layout/header/Header.tsx";
 import Content from "./layout/content/Content.tsx";
