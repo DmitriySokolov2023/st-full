@@ -15,7 +15,7 @@ const Card:FC<CardProps> = ({product}) => {
     return (
         <div className={styles.card}>
             <div className={styles.card__body}>
-                <img src="https://distfood.ru/upload/resize_cache/iblock/2b4/500_500_1/2b4bba4a22376413248600da9ec23f48.jpg" alt="" className={styles.card__image}/>
+                <img src={product.image} alt="" className={styles.card__image}/>
                 <div className={styles.card__content}>
                     <div className={styles.card__title}>{product.title}</div>
                     <div className={styles.cart__buttons}>

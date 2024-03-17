@@ -16,30 +16,43 @@ model User {
   name     String @unique
   password String
 
-  favorites Products[]
+  favorites Product[]
+  cart      Cart?
 }
 
-model Categories {
+model Category {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now()) @map("create_at")
   updateAt  DateTime @updatedAt @map("update_at")
 
-  categories String     @unique
-  products   Products[]
+  categories String    @unique
+  products   Product[]
 }
 
-model Products {
+model Product {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now()) @map("create_at")
   updateAt  DateTime @updatedAt @map("update_at")
 
-  title        String      @unique
-  size         Int
+  title        String    @unique
+  size         Int?
   image        String
   count        Int
   price        Float
-  Categories   Categories? @relation(fields: [categoriesId], references: [id])
-  categoriesId Int?        @map("category_id")
-  User         User?       @relation(fields: [userId], references: [id])
-  userId       Int?        @map("user_id")
+  categories   Category? @relation(fields: [categoriesId], references: [id])
+  categoriesId Int?      @map("category_id")
+  user         User?     @relation(fields: [userId], references: [id])
+  userId       Int?      @map("user_id")
+  cart         Cart?     @relation(fields: [cartId], references: [id])
+  cartId       Int?      @map("cart_id")
+}
+
+model Cart {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("create_at")
+  updateAt  DateTime @updatedAt @map("update_at")
+
+  product Product[]
+  user    User      @relation(fields: [userId], references: [id])
+  userId  Int       @unique @map("user_id")
 }
