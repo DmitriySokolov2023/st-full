@@ -1,14 +1,14 @@
 import {createBrowserRouter} from "react-router-dom";
 import HomePage from "../pages/home/HomePage.tsx";
-import PizzaPage from "../pages/pizza/PizzaPage.tsx";
-import SushiPage from "../pages/sushi/SushiPage.tsx";
-import WokPage from "../pages/wok/WokPage.tsx";
-import DessertsPage from "../pages/desserts/DessertsPage.tsx";
-import DrinksPage from "../pages/drinks/DrinksPage.tsx";
+import PizzaPage from "../pages/products/PizzaPage.tsx";
+import SushiPage from "../pages/products/SushiPage.tsx";
+import WokPage from "../pages/products/WokPage.tsx";
+import DessertsPage from "../pages/products/DessertsPage.tsx";
+import DrinksPage from "../pages/products/DrinksPage.tsx";
 import SalePage from "../pages/sale/SalePage.tsx";
 import App from "../App.tsx";
 import ErrorPage from "../pages/error/ErrorPage.tsx";
-import SnacksPage from "../pages/snaks/SnacksPage.tsx";
+import SnacksPage from "../pages/products/SnacksPage.tsx";
 
 
 export const router = createBrowserRouter([

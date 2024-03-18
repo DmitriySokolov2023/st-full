@@ -8,16 +8,17 @@ export class ProductsService {
     }
 
     async getAllProducts(){
-        const product =  await this.prisma.product.findMany({
-            orderBy:{
-                id:'asc'
-            }
-        })
-
-        if (!product){
-            throw new NotFoundException('Products not found')
-        }
-        return product
+        return this.prisma.product.findMany()
+        // const product =  await this.prisma.product.findMany({
+        //     orderBy:{
+        //         id:'asc'
+        //     }
+        // })
+        //
+        // if (!product){
+        //     throw new NotFoundException('Products not found')
+        // }
+        // return product
     }
 
     async getById(id:number){
