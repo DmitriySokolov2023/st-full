@@ -1,0 +1,40 @@
+.card{
+    display: flex;
+    width: 250px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.04);
+    padding: 10px;
+    gap: 15px;
+}
+
+.card__title{
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.card__count{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.card__total{
+    text-align: center;
+    width: 30px;
+
+}
+.card__counter{
+    padding: 10px;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+}
+
+.card__price{
+    font-weight: bold;
+}
+
+.card__image{
+    height: 60px;
+    border-radius: 15px;
+}

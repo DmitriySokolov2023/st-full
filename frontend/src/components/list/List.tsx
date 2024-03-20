@@ -1,14 +1,15 @@
 import { ReactNode} from "react";
-import styles from './ProductsList.module.css'
+import styles from './List.module.css'
 interface ProductListItemsProps<T>{
     item:T[]
     renderItem:(item:T) => ReactNode
+    type?:string
 }
 
-export default function ProductsList<T>(props:ProductListItemsProps<T>){
+export default function List<T>(props:ProductListItemsProps<T>){
     return (
         <div>
-            <h1>Каталог товаров</h1>
+            {props.type !== 'cart' && <h1>Каталог товаров</h1>}
             <div className={styles.product}>
                 {props.item.map(props.renderItem)}
             </div>
