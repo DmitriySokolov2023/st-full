@@ -4,6 +4,8 @@ import MyButton from "../../UI/button/MyButton.tsx";
 import { useState} from "react";
 import List from "../list/List.tsx";
 import CartItem from "./cartItem/cartItem.tsx";
+import {useTypedSelector} from "../../hooks/useTypedSelector.ts";
+import {ICartItem} from "../../types/product.types.ts";
 
 
 const Cart = () => {
@@ -11,6 +13,9 @@ const Cart = () => {
     const handleClose = () =>{
         setCartState(!cartState)
     }
+
+    const {cart} = useTypedSelector(state => state)
+
     return (
         <div>
             <div className={`${styles.cart} ${cartState ? styles.active : ''}`} onClick={() => handleClose()}></div>
@@ -26,7 +31,7 @@ const Cart = () => {
                         </div>
                     </div>
                     <div className={styles.cart__items}>
-                        <List item={[1,2,3]} renderItem={(index)=><CartItem key={index}/>} type={'cart'}/>
+                        <List item={cart} renderItem={(item:ICartItem)=><CartItem key={item.title} cartItem={item}/>} type={'cart'}/>
                     </div>
                     <div className={styles.cart__footer}>
                         <p>Итого:</p>
