@@ -26,7 +26,7 @@ const Cart = () => {
                         </div>
                     </div>
                     <div className={styles.cart__items}>
-                        <List item={[1,2,3]} renderItem={()=><CartItem/>} type={'cart'}/>
+                        <List item={[1,2,3]} renderItem={(index)=><CartItem key={index}/>} type={'cart'}/>
                     </div>
                     <div className={styles.cart__footer}>
                         <p>Итого:</p>

@@ -2,6 +2,7 @@ import styles from './Card.module.css'
 import MyButton from "../../UI/button/MyButton.tsx";
 import {FC, useState} from "react";
 import {IProduct} from "../../types/product.types.ts";
+import {useActions} from "../../hooks/useActions.ts";
 
 interface CardProps{
     product:IProduct
@@ -12,6 +13,8 @@ const Card:FC<CardProps> = ({product}) => {
         small:0,
         big:1
     })
+
+    const {getText} = useActions()
     return (
         <div className={styles.card}>
             <div className={styles.card__body}>
@@ -29,7 +32,7 @@ const Card:FC<CardProps> = ({product}) => {
                             <div className={styles.card__total}>{total}</div>
                             <button className={styles.card__counter} onClick={() => setTotal(prev => prev + 1)}>+</button>
                         </div>
-                        <MyButton>В корзину</MyButton>
+                        <MyButton onClick={()=>getText()} >В корзину</MyButton>
                     </div>
                 </div>
             </div>
