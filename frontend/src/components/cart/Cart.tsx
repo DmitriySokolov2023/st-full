@@ -5,16 +5,17 @@ import { useState} from "react";
 import List from "../list/List.tsx";
 import CartItem from "./cartItem/cartItem.tsx";
 import {useTypedSelector} from "../../hooks/useTypedSelector.ts";
-import {ICartItem} from "../../types/product.types.ts";
+import {ICartItem} from "../../types/cart.types.ts";
+
 
 
 const Cart = () => {
     const [cartState, setCartState] = useState<boolean>(false)
+    const cart = useTypedSelector(state => state.cart)
+    console.log(cart)
     const handleClose = () =>{
         setCartState(!cartState)
     }
-
-    const {cart} = useTypedSelector(state => state)
 
     return (
         <div>
@@ -31,7 +32,7 @@ const Cart = () => {
                         </div>
                     </div>
                     <div className={styles.cart__items}>
-                        <List item={cart} renderItem={(item:ICartItem)=><CartItem key={item.title} cartItem={item}/>} type={'cart'}/>
+                        <List item={cart} renderItem={(item:ICartItem, index)=><CartItem key={index} cartItem={item}/>} type={'cart'}/>
                     </div>
                     <div className={styles.cart__footer}>
                         <p>Итого:</p>

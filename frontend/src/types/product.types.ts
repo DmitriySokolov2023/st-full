@@ -6,11 +6,3 @@ export interface IProduct {
     count:number,
     price:number
 }
-
-export interface ICartItem{
-    title:string,
-    image:string,
-    size:{},
-    count:number,
-    price:number
-}

@@ -2,7 +2,7 @@ import { ReactNode} from "react";
 import styles from './List.module.css'
 interface ProductListItemsProps<T>{
     item:T[]
-    renderItem:(item:T) => ReactNode
+    renderItem:(item:T, index:number) => ReactNode
     type?:string
 }
 
