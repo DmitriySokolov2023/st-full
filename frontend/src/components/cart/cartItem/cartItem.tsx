@@ -1,19 +1,32 @@
 import styles from './CartItem.module.css'
-import {FC, useState} from "react";
-import {ICartItem} from "../../../types/cart.types.ts";
+import {FC, useMemo, useState} from "react";
+import {ICartItem} from "../../../store/cart/cart.types.ts";
+import {useActions} from "../../../hooks/useActions.ts";
 import {getPriceBySize} from "../../../utils/getPriceBySize.ts";
+
 
 
 
 interface CartProps{
     cartItem:ICartItem,
-    getFullPrice: (price: number) => void
+    getFullPrice?: (price: number) => void
 }
-const CartItem:FC<CartProps> = ({cartItem, getFullPrice}:CartProps) => {
+const CartItem:FC<CartProps> = ({cartItem}:CartProps) => {
     const [total, setTotal] = useState<number>(cartItem.count)
+    const {exchangeCount} = useActions()
     let price = getPriceBySize(cartItem.size, cartItem.product.price, total)
-    if (price){
-        getFullPrice(price)
+
+    useMemo(()=>{
+
+    }, [total])
+    const selectCount = (type:'plus' | 'minus') =>{
+        if (type === 'plus'){
+            setTotal(prev => prev + 1)
+        }
+        else{
+            setTotal(prev => prev > 1 ? prev - 1 : prev = 1)
+        }
+        exchangeCount({id:cartItem.id, price:price})
     }
     return (
         <div className={styles.card}>
@@ -21,11 +34,9 @@ const CartItem:FC<CartProps> = ({cartItem, getFullPrice}:CartProps) => {
             <div className={styles.card__body}>
                 <div className={styles.card__title}>{cartItem.product.title} {cartItem.size === 0 ? '35 см' : '25 см'}</div>
                 <div className={styles.card__count}>
-                    <button className={styles.card__counter}
-                            onClick={() => setTotal(prev => prev > 1 ? prev - 1 : prev = 1)}>-
-                    </button>
+                    <button className={styles.card__counter} onClick={() => selectCount('minus')}>-</button>
                     <div className={styles.card__total}>{total}</div>
-                    <button className={styles.card__counter} onClick={() => setTotal(prev => prev + 1)}>+</button>
+                    <button className={styles.card__counter} onClick={() => selectCount('plus')}>+</button>
                 </div>
                 <div className={styles.card__price}>{price} руб.</div>
             </div>

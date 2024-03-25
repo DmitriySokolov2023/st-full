@@ -5,21 +5,24 @@ import { useState} from "react";
 import List from "../list/List.tsx";
 import CartItem from "./cartItem/cartItem.tsx";
 import {useTypedSelector} from "../../hooks/useTypedSelector.ts";
-import {ICartItem} from "../../types/cart.types.ts";
+import {ICartItem} from "../../store/cart/cart.types.ts";
 
 
 
 const Cart = () => {
     const [cartState, setCartState] = useState<boolean>(false)
-    const [pr, setPr] = useState(0)
     const cart = useTypedSelector(state => state.cart)
+
+    console.log(cart)
 
     const handleClose = () =>{
         setCartState(!cartState)
     }
-    const getFullPrice = (price:number) =>{
-        setPr(prevState => prevState + price)
+    let sum = 0
+    const fullCost = () =>{
+        return cart.map(item => sum + item.price)
     }
+    console.log(fullCost())
     return (
         <div>
             <div className={`${styles.cart} ${cartState ? styles.active : ''}`} onClick={() => handleClose()}></div>
@@ -35,11 +38,11 @@ const Cart = () => {
                         </div>
                     </div>
                     <div className={styles.cart__items}>
-                        <List item={cart} renderItem={(item:ICartItem, index)=><CartItem key={index} cartItem={item} getFullPrice={getFullPrice}/>} type={'cart'}/>
+                        <List item={cart} renderItem={(item:ICartItem, index)=><CartItem key={index} cartItem={item}/>} type={'cart'}/>
                     </div>
                     <div className={styles.cart__footer}>
                         <p>Итого:</p>
-                        <h3>{pr} руб.</h3>
+                        <h3>{fullCost()} руб.</h3>
                         <MyButton>Перейти к оформлению</MyButton>
                     </div>
                 </div>

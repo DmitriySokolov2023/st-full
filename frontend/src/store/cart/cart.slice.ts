@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {ICartItem} from "../../types/cart.types.ts";
+import {ICartItem, ICartItemCounter} from "./cart.types.ts";
 
 
 
@@ -9,17 +9,23 @@ export const cartSlice = createSlice({
     initialState,
     reducers:{
         addToCart(state, {payload:cartItem}:PayloadAction<ICartItem>){
-            const isId = state.some(prod => prod.product.id === cartItem.product.id)
-            const isSize = state.some(prod => prod.size === cartItem.size)
+            const isExist = state.some(prod => prod.id === cartItem.product.id && prod.size === cartItem.product.size)
 
-            if(isId && isSize){
-                alert('Товар уже в корзине!')
+            if(isExist){
+                alert('Товар уже в корзине')
             }
             else {
                 state.push(cartItem)
             }
         },
+        exchangeCount(state, {payload:itemCount}:PayloadAction<ICartItemCounter>){
+            const isExist = state.find(item => item.id === itemCount.id)
 
+            if (isExist){
+                isExist.price = itemCount.price
+            }
+
+        }
     }
 })
 

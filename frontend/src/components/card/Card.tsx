@@ -3,7 +3,6 @@ import MyButton from "../../UI/button/MyButton.tsx";
 import {FC, useMemo, useState} from "react";
 import {IProduct} from "../../types/product.types.ts";
 import {useActions} from "../../hooks/useActions.ts";
-import {getPriceBySize} from "../../utils/getPriceBySize.ts";
 
 
 
@@ -17,16 +16,19 @@ const Card:FC<CardProps> = ({product}) => {
     let price = product.price
 
     useMemo(()=>{
-        price = getPriceBySize(size, product.price, total)
-    }, [size, total])
+        if (size === 0) price = product.price * total
+        else price = price * 0.75 * total
+    }, [total, size])
 
 
     const addToCardItem = () =>{
         if(product){
             addToCart({
+                id:product.id,
                 product,
                 size,
-                count:total
+                count:total,
+                price
             })
         }
     }
