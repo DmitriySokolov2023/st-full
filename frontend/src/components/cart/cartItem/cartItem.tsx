@@ -6,12 +6,15 @@ import {getPriceBySize} from "../../../utils/getPriceBySize.ts";
 
 
 interface CartProps{
-    cartItem:ICartItem
+    cartItem:ICartItem,
+    getFullPrice: (price: number) => void
 }
-const CartItem:FC<CartProps> = ({cartItem}:CartProps) => {
+const CartItem:FC<CartProps> = ({cartItem, getFullPrice}:CartProps) => {
     const [total, setTotal] = useState<number>(cartItem.count)
     let price = getPriceBySize(cartItem.size, cartItem.product.price, total)
-
+    if (price){
+        getFullPrice(price)
+    }
     return (
         <div className={styles.card}>
             <img src={cartItem.product.image} alt="" className={styles.card__image}/>

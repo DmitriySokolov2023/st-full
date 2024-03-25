@@ -11,12 +11,15 @@ import {ICartItem} from "../../types/cart.types.ts";
 
 const Cart = () => {
     const [cartState, setCartState] = useState<boolean>(false)
+    const [pr, setPr] = useState(0)
     const cart = useTypedSelector(state => state.cart)
-    console.log(cart)
+
     const handleClose = () =>{
         setCartState(!cartState)
     }
-
+    const getFullPrice = (price:number) =>{
+        setPr(prevState => prevState + price)
+    }
     return (
         <div>
             <div className={`${styles.cart} ${cartState ? styles.active : ''}`} onClick={() => handleClose()}></div>
@@ -32,11 +35,11 @@ const Cart = () => {
                         </div>
                     </div>
                     <div className={styles.cart__items}>
-                        <List item={cart} renderItem={(item:ICartItem, index)=><CartItem key={index} cartItem={item}/>} type={'cart'}/>
+                        <List item={cart} renderItem={(item:ICartItem, index)=><CartItem key={index} cartItem={item} getFullPrice={getFullPrice}/>} type={'cart'}/>
                     </div>
                     <div className={styles.cart__footer}>
                         <p>Итого:</p>
-                        <h3>880 руб.</h3>
+                        <h3>{pr} руб.</h3>
                         <MyButton>Перейти к оформлению</MyButton>
                     </div>
                 </div>
