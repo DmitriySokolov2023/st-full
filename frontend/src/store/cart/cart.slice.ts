@@ -9,7 +9,7 @@ export const cartSlice = createSlice({
     initialState,
     reducers:{
         addToCart(state, {payload:cartItem}:PayloadAction<ICartItem>){
-            const isExist = state.some(prod => prod.id === cartItem.product.id && prod.size === cartItem.product.size)
+            const isExist = state.some(prod => prod.id === cartItem.id && prod.size === cartItem.size)
 
             if(isExist){
                 alert('Товар уже в корзине')
@@ -18,12 +18,10 @@ export const cartSlice = createSlice({
                 state.push(cartItem)
             }
         },
-        exchangeCount(state, {payload:itemCount}:PayloadAction<ICartItemCounter>){
-            const isExist = state.find(item => item.id === itemCount.id)
-
-            if (isExist){
-                isExist.price = itemCount.price
-            }
+        exchangeCount(state, action:PayloadAction<ICartItemCounter>){
+            const {id, price} = action.payload
+            const isExist = state.find(item => item.id === id)
+            if (isExist) state.map(cartItem => cartItem.id === id ? cartItem.price = price : cartItem.price)
 
         }
     }

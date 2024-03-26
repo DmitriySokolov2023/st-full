@@ -12,17 +12,13 @@ import {ICartItem} from "../../store/cart/cart.types.ts";
 const Cart = () => {
     const [cartState, setCartState] = useState<boolean>(false)
     const cart = useTypedSelector(state => state.cart)
-
     console.log(cart)
 
     const handleClose = () =>{
         setCartState(!cartState)
     }
-    let sum = 0
-    const fullCost = () =>{
-        return cart.map(item => sum + item.price)
-    }
-    console.log(fullCost())
+
+
     return (
         <div>
             <div className={`${styles.cart} ${cartState ? styles.active : ''}`} onClick={() => handleClose()}></div>
@@ -34,7 +30,7 @@ const Cart = () => {
                     <div className={styles.cart__header}>
                         <div>
                             <h3>Корзина</h3>
-                            <p className={styles.cart__subtitle}>В вашей корзине 1 товар</p>
+                            <p className={styles.cart__subtitle}>В вашей корзине <strong>{cart.length} </strong> {cart.length === 1 ? 'товар' : cart.length < 5 ? 'товара' : 'товаров'} </p>
                         </div>
                     </div>
                     <div className={styles.cart__items}>
@@ -42,7 +38,7 @@ const Cart = () => {
                     </div>
                     <div className={styles.cart__footer}>
                         <p>Итого:</p>
-                        <h3>{fullCost()} руб.</h3>
+                        <h3>0 руб.</h3>
                         <MyButton>Перейти к оформлению</MyButton>
                     </div>
                 </div>

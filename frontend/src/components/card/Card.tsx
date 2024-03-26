@@ -1,37 +1,24 @@
 import styles from './Card.module.css'
-import MyButton from "../../UI/button/MyButton.tsx";
 import {FC, useMemo, useState} from "react";
 import {IProduct} from "../../types/product.types.ts";
-import {useActions} from "../../hooks/useActions.ts";
+import AddCartButton from "../cart/cartButton/AddCartButton.tsx";
 
 
 
 interface CardProps{
     product:IProduct
 }
+
 const Card:FC<CardProps> = ({product}) => {
     const [total, setTotal] = useState<number>(1)
-    const [size, setSize]  = useState(0)
-    const {addToCart} = useActions()
-    let price = product.price
+    const [size, setSize]  = useState<number>(0)
+    const [price, setPrice] = useState<number>(product.price)
 
     useMemo(()=>{
-        if (size === 0) price = product.price * total
-        else price = price * 0.75 * total
+        if (size === 0) setPrice(product.price * total)
+        else setPrice(product.price * 0.75 * total)
     }, [total, size])
 
-
-    const addToCardItem = () =>{
-        if(product){
-            addToCart({
-                id:product.id,
-                product,
-                size,
-                count:total,
-                price
-            })
-        }
-    }
 
     return (
         <div className={styles.card}>
@@ -50,7 +37,7 @@ const Card:FC<CardProps> = ({product}) => {
                             <div className={styles.card__total}>{total}</div>
                             <button className={styles.card__counter} onClick={() => setTotal(prev => prev + 1)}>+</button>
                         </div>
-                        <MyButton onClick={()=>addToCardItem()}>В корзину</MyButton>
+                        <AddCartButton product={product} size={size} total={total} price={price}/>
                     </div>
                 </div>
             </div>

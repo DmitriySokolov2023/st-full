@@ -8,6 +8,7 @@ export interface ICartItem{
     price:number
 }
 
+
 export interface ICartItemCounter{
     id:number,
     price:number
