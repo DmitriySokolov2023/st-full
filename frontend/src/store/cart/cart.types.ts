@@ -7,12 +7,19 @@ export interface ICartItem{
     size:number,
     price:number
 }
-
+export interface ICartInitialState{
+    items:ICartItem[]
+}
 
 export interface ICartItemCounter{
     id:number,
     type:'plus' | 'minus',
     size:number
+}
+
+export interface ICartItemRemove {
+    id:number,
+    size:number,
 }
 
 

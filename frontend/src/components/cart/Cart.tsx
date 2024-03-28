@@ -1,11 +1,12 @@
 import styles from './Cart.module.css'
 import {IoCloseOutline} from "react-icons/io5";
 import MyButton from "../../UI/button/MyButton.tsx";
-import { useMemo, useState} from "react";
+import  { useMemo, useState} from "react";
 import List from "../list/List.tsx";
 import CartItem from "./cartItem/cartItem.tsx";
 import {useTypedSelector} from "../../hooks/useTypedSelector.ts";
 import {ICartItem} from "../../store/cart/cart.types.ts";
+import {CiShoppingCart} from "react-icons/ci";
 
 
 
@@ -16,7 +17,7 @@ const Cart = () => {
 
     useMemo(()=>{
         setFullPrice(0)
-        cart.forEach(item => setFullPrice(prevState => prevState + item.price))
+        cart.items.forEach(item => setFullPrice(prevState => prevState + item.price))
     }, [cart])
 
     const handleClose = () =>{
@@ -28,18 +29,23 @@ const Cart = () => {
         <div>
             <div className={`${styles.cart} ${cartState ? styles.active : ''}`} onClick={() => handleClose()}></div>
             <div className={`${styles.cart__body} ${cartState ? styles.active : ''}`}>
-                <div className={styles.cart__icon} onClick={() => handleClose()}>Корзина</div>
+                <div className={styles.cart__pick} onClick={() => handleClose()}>
+                    <div className={styles.cart__icon}>
+                        <CiShoppingCart size={40}/>
+                        <div className={styles.cart__count}>{cart.items.length}</div>
+                    </div>
+                </div>
                 <div className={`${styles.cart__content} ${cartState ? styles.active : ''}`}>
                     <IoCloseOutline size={45} className={styles.cart__close} onClick={() => handleClose()}
                                     style={{cursor: "pointer"}}/>
                     <div className={styles.cart__header}>
                         <div>
                             <h3>Корзина</h3>
-                            <p className={styles.cart__subtitle}>В вашей корзине <strong>{cart.length} </strong> {cart.length === 1 ? 'товар' : cart.length < 5 ? 'товара' : 'товаров'} </p>
+                            <p className={styles.cart__subtitle}>В вашей корзине <strong>{cart.items.length} </strong> {cart.items.length === 1 ? 'товар' : cart.items.length < 5 && cart.items.length !=0  ? 'товара' :'товаров'} </p>
                         </div>
                     </div>
                     <div className={styles.cart__items}>
-                        <List item={cart} renderItem={(item:ICartItem, index)=><CartItem key={index} cartItem={item}/>} type={'cart'}/>
+                        <List item={cart.items} renderItem={(item:ICartItem, index)=><CartItem key={index} cartItem={item}/>} type={'cart'}/>
                     </div>
                     <div className={styles.cart__footer}>
                         <p>Итого:</p>

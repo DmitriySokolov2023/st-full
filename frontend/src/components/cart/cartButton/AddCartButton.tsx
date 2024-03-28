@@ -1,7 +1,8 @@
 import {IProduct} from "../../../types/product.types.ts";
-import {FC} from "react";
+import {FC, useEffect, useState} from "react";
 import {useActions} from "../../../hooks/useActions.ts";
 import MyButton from "../../../UI/button/MyButton.tsx";
+import {useTypedSelector} from "../../../hooks/useTypedSelector.ts";
 
 interface IAddCartButton{
     product:IProduct,
@@ -11,10 +12,18 @@ interface IAddCartButton{
 }
 const AddCartButton:FC<IAddCartButton> = ({product, total, size, price}) => {
 
-    const {addToCart} = useActions()
-    const addToCardItem = () =>{
+    const {toggleToCart} = useActions()
+    const [cartState, setCartState] = useState(false)
+    const cart = useTypedSelector(state => state.cart)
+
+    useEffect(() => {
+        setCartState(cart.items.some(item => item.id === product.id && item.size === size))
+    }, [cart, size]);
+
+     const toggleToCardItem = () =>{
+        setCartState(!cartState)
         if(product){
-            addToCart({
+            toggleToCart({
                 id:product.id,
                 product,
                 size,
@@ -25,7 +34,7 @@ const AddCartButton:FC<IAddCartButton> = ({product, total, size, price}) => {
     }
     return(
         <div>
-            <MyButton onClick={()=>addToCardItem()}>В корзину</MyButton>
+            <MyButton onClick={()=>toggleToCardItem()} type={cartState ? 'passive' : 'active'}>{cartState ? 'Убрать' : 'В корзину'}</MyButton>
         </div>
     )
 };

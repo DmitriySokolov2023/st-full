@@ -38,3 +38,9 @@
     height: 60px;
     border-radius: 15px;
 }
+
+.card__remove{
+    color: #ff4546;
+    cursor: pointer;
+    margin-left: 10px;
+}
