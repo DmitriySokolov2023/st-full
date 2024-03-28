@@ -1,7 +1,7 @@
 import styles from './Cart.module.css'
 import {IoCloseOutline} from "react-icons/io5";
 import MyButton from "../../UI/button/MyButton.tsx";
-import { useState} from "react";
+import { useMemo, useState} from "react";
 import List from "../list/List.tsx";
 import CartItem from "./cartItem/cartItem.tsx";
 import {useTypedSelector} from "../../hooks/useTypedSelector.ts";
@@ -12,7 +12,12 @@ import {ICartItem} from "../../store/cart/cart.types.ts";
 const Cart = () => {
     const [cartState, setCartState] = useState<boolean>(false)
     const cart = useTypedSelector(state => state.cart)
-    console.log(cart)
+    const [fullPrice, setFullPrice] = useState<number>(0)
+
+    useMemo(()=>{
+        setFullPrice(0)
+        cart.forEach(item => setFullPrice(prevState => prevState + item.price))
+    }, [cart])
 
     const handleClose = () =>{
         setCartState(!cartState)
@@ -38,7 +43,7 @@ const Cart = () => {
                     </div>
                     <div className={styles.cart__footer}>
                         <p>Итого:</p>
-                        <h3>0 руб.</h3>
+                        <h3>{fullPrice} руб.</h3>
                         <MyButton>Перейти к оформлению</MyButton>
                     </div>
                 </div>

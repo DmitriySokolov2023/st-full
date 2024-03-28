@@ -11,7 +11,8 @@ export interface ICartItem{
 
 export interface ICartItemCounter{
     id:number,
-    price:number
+    type:'plus' | 'minus',
+    size:number
 }
 
 

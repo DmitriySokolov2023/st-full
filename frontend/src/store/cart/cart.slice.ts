@@ -19,10 +19,21 @@ export const cartSlice = createSlice({
             }
         },
         exchangeCount(state, action:PayloadAction<ICartItemCounter>){
-            const {id, price} = action.payload
-            const isExist = state.find(item => item.id === id)
-            if (isExist) state.map(cartItem => cartItem.id === id ? cartItem.price = price : cartItem.price)
-
+            const {id, type, size} = action.payload
+            const item = state.find(item => item.id === id && item.size === size && item)
+            if(item){
+                if(type === 'plus'){
+                    item.count++
+                    item.price = item.product.price * item.count
+                }
+                else {
+                    if (item.count > 1){
+                        item.count--
+                        item.price = item.product.price * item.count
+                    }
+                    else item.count = 1
+                }
+            }
         }
     }
 })
