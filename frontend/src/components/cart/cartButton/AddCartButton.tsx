@@ -34,7 +34,7 @@ const AddCartButton:FC<IAddCartButton> = ({product, total, size, price}) => {
     }
     return(
         <div>
-            <MyButton onClick={()=>toggleToCardItem()} type={cartState ? 'passive' : 'active'}>{cartState ? 'Убрать' : 'В корзину'}</MyButton>
+            <MyButton onClick={()=>toggleToCardItem()} state={cartState ? 'passive' : 'active'}>{cartState ? 'Убрать' : 'В корзину'}</MyButton>
         </div>
     )
 };
