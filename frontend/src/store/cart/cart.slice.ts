@@ -1,10 +1,11 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {ICartInitialState, ICartItem, ICartItemCounter, ICartItemRemove} from "./cart.types.ts";
+import {getLocalStorage} from "../../utils/localStorageUtil.ts";
 
 
 
 const initialState:ICartInitialState = {
-    items:[]
+    items:getLocalStorage().items
 }
 export const cartSlice = createSlice({
     name:'cart',
@@ -21,7 +22,6 @@ export const cartSlice = createSlice({
         },
         removeToCart(state, action:PayloadAction<ICartItemRemove>){
             state.items = state.items.filter(item => item.id !== action.payload.id || item.size !== action.payload.size)
-
         },
         exchangeCount(state, action:PayloadAction<ICartItemCounter>){
             const {id, type, size} = action.payload

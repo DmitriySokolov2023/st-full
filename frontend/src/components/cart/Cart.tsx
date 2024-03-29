@@ -1,12 +1,13 @@
 import styles from './Cart.module.css'
 import {IoCloseOutline} from "react-icons/io5";
-import MyButton from "../../UI/button/MyButton.tsx";
 import  { useMemo, useState} from "react";
 import List from "../list/List.tsx";
 import CartItem from "./cartItem/cartItem.tsx";
 import {useTypedSelector} from "../../hooks/useTypedSelector.ts";
 import {ICartItem} from "../../store/cart/cart.types.ts";
 import {CiShoppingCart} from "react-icons/ci";
+import OrderButton from "../OrderButton.tsx";
+import { setLocalStorage} from "../../utils/localStorageUtil.ts";
 
 
 
@@ -17,7 +18,10 @@ const Cart = () => {
 
     useMemo(()=>{
         setFullPrice(0)
-        cart.items.forEach(item => setFullPrice(prevState => prevState + item.price))
+        cart.items.forEach(item =>{
+            setFullPrice(prevState => prevState + item.price)
+        })
+        setLocalStorage(cart)
     }, [cart])
 
     const handleClose = () =>{
@@ -50,7 +54,9 @@ const Cart = () => {
                     <div className={styles.cart__footer}>
                         <p>Итого:</p>
                         <h3>{fullPrice} руб.</h3>
-                        <MyButton>Перейти к оформлению</MyButton>
+                        <div onClick={()=> setCartState(false)}>
+                            <OrderButton/>
+                        </div>
                     </div>
                 </div>
             </div>
