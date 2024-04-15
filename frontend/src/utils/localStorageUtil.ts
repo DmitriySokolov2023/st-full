@@ -7,6 +7,7 @@ export const setLocalStorage = (cart:ICartInitialState) =>{
 
 export const getLocalStorage = () =>{
     const cartItems = localStorage.getItem('cartItems')
-    if (cartItems) return JSON.parse(cartItems)
-
+    if (cartItems)
+        return JSON.parse(cartItems)
+    else return []
 }
