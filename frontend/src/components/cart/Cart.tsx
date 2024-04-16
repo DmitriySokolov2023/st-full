@@ -9,6 +9,9 @@ import {CiShoppingCart} from "react-icons/ci";
 import { setLocalStorage} from "../../utils/localStorageUtil.ts";
 import MyButton from "../../UI/button/MyButton.tsx";
 import MyModal from "../../UI/modal/MyModal.tsx";
+import {useActions} from "../../hooks/useActions.ts";
+import OrderForm from "../order/OrderForm.tsx";
+
 
 
 
@@ -16,8 +19,8 @@ const Cart = () => {
     const [cartState, setCartState] = useState<boolean>(false)
     const [fullPrice, setFullPrice] = useState<number>(0)
     const cart = useTypedSelector(state => state.cart)
-
-
+    const {visible} = useTypedSelector(state => state.modal)
+    const {toggleModal} = useActions()
 
     useMemo(()=>{
         setFullPrice(0)
@@ -36,7 +39,7 @@ const Cart = () => {
 
     return (
         <div>
-            <div className={`${styles.cart} ${cartState ? styles.active : ''}`} onClick={() => handleClose()}></div>
+            <div className={`${styles.cart} ${cartState && styles.active}`} onClick={() => handleClose()}></div>
             <div className={`${styles.cart__body} ${cartState ? styles.active : ''}`}>
                 <div className={styles.cart__pick} onClick={() => handleClose()}>
                     <div className={styles.cart__icon}>
@@ -61,11 +64,13 @@ const Cart = () => {
                         <h3>{fullPrice} руб.</h3>
                         <div onClick={()=> {setCartState(false)}}>
                         </div>
-                        <MyButton>Перейти к оформлению</MyButton>
+                        <div><MyButton onClick={()=> toggleModal({visible})}>Перейти к оформлению</MyButton></div>
                     </div>
                 </div>
             </div>
-            <MyModal title={'Оформление заказа'}></MyModal>
+            <MyModal title={'Оформить заказ'}>
+                <OrderForm/>
+            </MyModal>
         </div>
 
 

@@ -1,0 +1,27 @@
+.form{
+
+}
+.form__body{
+    display: flex;
+    flex-direction: column;
+}
+.form__info{
+    display: flex;
+    gap: 10px;
+
+}
+.form_email{
+}
+.form__delivery{
+}
+.form__address{
+    display: flex;
+    gap: 10px;
+}
+.form__pay{
+
+}
+
+p{
+    color: black;
+}
