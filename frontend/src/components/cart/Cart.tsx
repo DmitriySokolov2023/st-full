@@ -20,7 +20,8 @@ const Cart = () => {
     const [fullPrice, setFullPrice] = useState<number>(0)
     const cart = useTypedSelector(state => state.cart)
     const {visible} = useTypedSelector(state => state.modal)
-    const {toggleModal} = useActions()
+    const {toggleModal, toggleOrder} = useActions()
+
 
     useMemo(()=>{
         setFullPrice(0)
@@ -36,6 +37,10 @@ const Cart = () => {
         setCartState(!cartState)
     }
 
+    const makingOrder = () =>{
+        toggleModal({visible})
+        toggleOrder({status:false})
+    }
 
     return (
         <div>
@@ -64,11 +69,11 @@ const Cart = () => {
                         <h3>{fullPrice} руб.</h3>
                         <div onClick={()=> {setCartState(false)}}>
                         </div>
-                        <div><MyButton onClick={()=> toggleModal({visible})}>Перейти к оформлению</MyButton></div>
+                        <div><MyButton onClick={()=> makingOrder()}  disabled={cart.items.length <=0}>Перейти к оформлению</MyButton></div>
                     </div>
                 </div>
             </div>
-            <MyModal title={'Оформить заказ'}>
+            <MyModal>
                 <OrderForm/>
             </MyModal>
         </div>

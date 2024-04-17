@@ -1,5 +1,5 @@
 .form{
-
+    margin-top: 20px;
 }
 .form__body{
     display: flex;
@@ -20,6 +20,10 @@
 }
 .form__pay{
 
+}
+
+.form__submit{
+    background-color: #fd4445;
 }
 
 p{

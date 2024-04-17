@@ -40,6 +40,9 @@ export const cartSlice = createSlice({
                     else item.count = 1
                 }
             }
+        },
+        resetCart(state){
+            state.items = []
         }
     }
 })

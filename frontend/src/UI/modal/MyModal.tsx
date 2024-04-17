@@ -4,7 +4,7 @@ import {useTypedSelector} from "../../hooks/useTypedSelector.ts";
 import {useActions} from "../../hooks/useActions.ts";
 
 interface MyModalProps {
-    title: string,
+    title?: string,
     text?: string,
     children?: ReactNode,
 }
